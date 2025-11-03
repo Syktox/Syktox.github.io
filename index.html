@@ -1,11 +1,450 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Markus Syktox - Full-Stack Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00ff88;
+            --secondary-color: #ff00ff;
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(0, 255, 136, 0.3);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        section {
+            padding: 100px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #hero {
+            text-align: center;
+            padding-top: 150px;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #1a1a2e 100%);
+        }
+        #hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 20px var(--primary-color); }
+            to { text-shadow: 0 0 30px var(--secondary-color); }
+        }
+        #hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        #about {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+        #about h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+        #about p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+            text-align: center;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .skill {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .skill i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        #projects {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        #projects h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+        .project-card h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .project-card .tech {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .project-card .tech span {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        .project-card a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        #contact {
+            text-align: center;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+        #contact h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .contact-links a:hover {
+            color: var(--primary-color);
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+<header>
+    <nav>
+        <a href="#" class="logo">SYKTOX</a>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+</header>
+
+<section id="hero">
+    <h1>Markus Kammerstetter</h1>
+    <p>C++ Entwickler bei Sigmatek | Leidenschaftlicher Codeur | Zukunftsbauer</p>
+    <a href="#projects" class="btn">Meine Projekte entdecken</a>
+</section>
+
+<section id="about">
+    <h2>Über mich</h2>
+    <p>Hallo! Ich bin Markus, ein passionierter Softwareentwickler aus Österreich. Derzeit rocke ich als C++ Developer bei Sigmatek, wo ich an innovativen Automatisierungslösungen arbeite. Mit einem Fokus auf effiziente Algorithmen und robuste Systeme baue ich Software, die nicht nur funktioniert, sondern die Welt ein bisschen besser macht.</p>
+    <p>Neben C++ liebe ich Java für strukturierte Anwendungen, Python für smarte Bots und Embedded-Projekte mit ESP32. Als Absolvent der HTL Braunau (wo ich mein legendäres 4-Gewinnt-Spiel baute) strebe ich kontinuierliche Lernkurven an – von MVC-Patterns bis hin zu Discord-Management-Tools.</p>
+    <p>Freizeit? Coding-Challenges, Open-Source-Beiträge und das Erkunden neuer Tech-Trends. Lass uns connecten und über coole Ideen quatschen!</p>
+    <div class="skills-grid">
+        <div class="skill">
+            <i class="fab fa-cuttlefish"></i>
+            <div>C++</div>
+        </div>
+        <div class="skill">
+            <i class="fab fa-java"></i>
+            <div>Java</div>
+        </div>
+        <div class="skill">
+            <i class="fab fa-python"></i>
+            <div>Python</div>
+        </div>
+        <div class="skill">
+            <i class="fas fa-robot"></i>
+            <div>Embedded (ESP32)</div>
+        </div>
+        <div class="skill">
+            <i class="fas fa-sitemap"></i>
+            <div>Algorithmen & DS</div>
+        </div>
+        <div class="skill">
+            <i class="fas fa-cogs"></i>
+            <div>MVC Pattern</div>
+        </div>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Ausgewählte Projekte</h2>
+    <div class="projects-grid">
+        <div class="project-card">
+            <h3>4-Gewinnt mit ESP32 & Matrix</h3>
+            <p>Ein selbstgebautes Vier-Gewinnt-Spiel aus Holz, LED-Matrix und ESP32 – perfekt für die HTL-Prüfung. Code für den vollen Spielspaß!</p>
+            <div class="tech">
+                <span>C++</span>
+                <span>ESP32</span>
+                <span>Hardware</span>
+            </div>
+            <a href="https://github.com/Syktox/4-wins-ESP32_with_Matrix" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>Binary Tree Implementation</h3>
+            <p>Robuste Java-Implementierung eines Binärbaums – ideal für effiziente Datenstrukturen in realen Anwendungen.</p>
+            <div class="tech">
+                <span>Java</span>
+                <span>Data Structures</span>
+            </div>
+            <a href="https://github.com/Syktox/Binary_Tree" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>Magic Marbles (MVC)</h3>
+            <p>Ein faszinierendes Marble-Spiel in Java, das das MVC-Pattern perfekt demonstriert – Übung macht den Meister!</p>
+            <div class="tech">
+                <span>Java</span>
+                <span>MVC</span>
+                <span>Game Dev</span>
+            </div>
+            <a href="https://github.com/Syktox/Magic_Marbles" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>TheManager Discord Bot</h3>
+            <p>Mein persönlicher Bot, der meinen Discord-Server wie ein Profi managt – Moderation, Funktionen und mehr.</p>
+            <div class="tech">
+                <span>Python</span>
+                <span>Discord API</span>
+            </div>
+            <a href="https://github.com/Syktox/TheManager_Discord_Bot" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>Simple To-Do List</h3>
+            <p>Eine unkomplizierte, aber effektive To-Do-Liste in C++ – weil Produktivität zählt.</p>
+            <div class="tech">
+                <span>C++</span>
+            </div>
+            <a href="https://github.com/Syktox/To_Do_List" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>RemoveFromFile Tool</h3>
+            <p>Kleines Utility zum Entfernen von Text aus Dateien – der Prototyp für ein zukünftiges GUI-Tool.</p>
+            <div class="tech">
+                <span>C++</span>
+                <span>File Processing</span>
+            </div>
+            <a href="https://github.com/Syktox/RemoveFromFile" target="_blank">GitHub Repo</a>
+        </div>
+    </div>
+    <p style="text-align: center; margin-top: 2rem; opacity: 0.8;">Mehr Projekte? Schau auf meinem <a href="https://github.com/Syktox" target="_blank" style="color: var(--secondary-color);">GitHub</a> vorbei!</p>
+</section>
+
+<section id="contact">
+    <h2>Lass uns in Kontakt treten</h2>
+    <p>Bereit für ein Gespräch über Code, Projekte oder die nächste große Idee? Schreib mir!</p>
+    <div class="contact-links">
+        <a href="mailto:markus.kammerstetter@hotmail.com"><i class="fas fa-envelope"></i> Email</a>
+        <a href="https://github.com/Syktox" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://linkedin.com/in/Markus Kammerstetter" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://discord.gg/user/syktox" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Markus Syktox. Built with passion and pixels. 🌍 Enjoying life while coding.</p>
+</footer>
+
+<script>
+    // Simple hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Add some particle effect for coolness (simple JS)
+    function createParticles() {
+        const particles = document.createElement('div');
+        particles.style.position = 'fixed';
+        particles.style.top = '0';
+        particles.style.left = '0';
+        particles.style.width = '100%';
+        particles.style.height = '100%';
+        particles.style.pointerEvents = 'none';
+        particles.style.zIndex = '-1';
+        document.body.appendChild(particles);
+        // Animate particles (simplified)
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.background = 'var(--primary-color)';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animation = `float ${Math.random() * 3 + 2}s infinite`;
+            particles.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    const style = document.createElement('style');
+    style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+            }
+        `;
+    document.head.appendChild(style);
+</script>
 </body>
 </html>
